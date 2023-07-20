@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "584342807044",
+    "project_id": "princee-de1eb",
+    "storage_bucket": "princee-de1eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584342807044:android:ab59ddb6239d3f6afe0b51",
+        "android_client_info": {
+          "package_name": "com.example.princee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584342807044-ho3cbkj6atlbqmks30tcpoi7668a7udp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.princee",
+            "certificate_hash": "2fb7c62c81c7516fe7f01494029939b88c3a0149"
+          }
+        },
+        {
+          "client_id": "584342807044-bmj20oonpm33gjshou5hhd7m40npue8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7tTWeGRfKCyckPm_K94szPE52QKTrwT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584342807044-bmj20oonpm33gjshou5hhd7m40npue8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

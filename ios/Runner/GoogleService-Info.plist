@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>584342807044-nr3r8cuc2nmv8eosir18gqdsr6vhi33c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.584342807044-nr3r8cuc2nmv8eosir18gqdsr6vhi33c</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>584342807044-ho3cbkj6atlbqmks30tcpoi7668a7udp.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDe6ylpBtjvmBvsPeCZQ-FOwK0PqFGN_UA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>584342807044</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.princee</string>
+	<key>PROJECT_ID</key>
+	<string>princee-de1eb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>princee-de1eb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:584342807044:ios:40a1fd8ba513b7bafe0b51</string>
+</dict>
+</plist>
