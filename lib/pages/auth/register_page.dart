@@ -1,29 +1,24 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:princee/pages/auth/register_page.dart';
+import 'package:princee/pages/auth/login_page.dart';
 import 'package:princee/widgets/widgets.dart';
 
 
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-
-
-
-class _LoginPageState extends State<LoginPage>{
-final formKey = GlobalKey<FormState>();
-String email = "";
-String password = "";
-
-
+class _RegisterPageState extends State<RegisterPage> {
+  final formKey = GlobalKey<FormState>();
+  String email = "";
+  String password = "";
+  String fullName = "";
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+  return  Scaffold(
       appBar: AppBar(),
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
@@ -35,11 +30,39 @@ String password = "";
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center, 
               children: <Widget> [
-              const Text("Prince", style: 
+              const Text("Register", style: 
               TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
               const SizedBox(height: 10),
-              const Text(" This is not the end, this is the beginning.. Wait on see..😊  ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w100),),
-              Image.asset("assets/login-access.png", width: 200,),
+              const Text(" Create a new account Now  ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w100),),
+              Image.asset("assets/register.png", width: 200,),
+                const SizedBox(height: 15,),
+              TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  labelText: "Full Name",
+                  prefixIcon:  const Icon(
+                    Icons.person,
+                    color: Color(0xFFee7b64),
+                  )
+                ),
+                onChanged: (value){
+                  setState(() {
+                    fullName = value;  
+                  
+                  });
+                },
+                validator: (value){
+                  if(value!.isNotEmpty){
+                    return null;
+
+                  }else{
+                    return "Name cannot be empty";
+                  }
+                },
+              ), 
+
+
+
+              const SizedBox(height: 15,),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
                   labelText: "Email",
@@ -51,12 +74,10 @@ String password = "";
                 onChanged: (value){
                   setState(() {
                     email = value;  
-                   
                   });
                 },
-            //Check validation
-
-                 validator: (value) {
+              //Check validation  
+                validator: (value) {
                 return RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(value!)
@@ -65,7 +86,6 @@ String password = "";
                   },
 
               ),
-             
               
               const SizedBox(height: 15),
               TextFormField(
@@ -92,7 +112,6 @@ String password = "";
                 },
               ),
               const SizedBox(height: 15),
-
               SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -102,15 +121,15 @@ String password = "";
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40))),
                             child: const Text(
-                              "Sign In",
+                              "Register",
                               style:
                                   TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 16),
 
-                               ),
-                            onPressed: () {
-                              login();
-                            },
                             ),
+                            onPressed: () {
+                              Register();
+                          },
+                          ),
             ),
                           const SizedBox(height: 25),
 
@@ -118,14 +137,14 @@ String password = "";
              SizedBox(height: 10,),
              Text.rich(
               TextSpan(
-                text: "Don't Hava An Account ?",
+                text: "Already have an account ?",
                   style: TextStyle(color: Colors.black, fontSize: 14),
                 children: <TextSpan>[
                   TextSpan(
-                    text: "Register here",
+                    text: "Login now",
                     style: TextStyle(color: Colors.black, decoration: TextDecoration.underline),
                     recognizer: TapGestureRecognizer()..onTap = (){
-                      nextScreenReplace(context, const RegisterPage());
+                      nextScreenReplace(context, const LoginPage());
 
                           }),  
                        
@@ -144,10 +163,9 @@ String password = "";
       )
 
     );
+      
+    
   }
-  login(){
-if(formKey.currentState!.validate()){
-}
-  }
-}
+      Register(){}
 
+}
