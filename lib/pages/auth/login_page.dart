@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:princee/pages/auth/register_page.dart';
+import 'package:princee/pages/home_page.dart';
+import 'package:princee/service/auth_service.dart';
+import 'package:princee/service/database_service.dart';
 import 'package:princee/widgets/widgets.dart';
 
 
@@ -19,14 +24,15 @@ class _LoginPageState extends State<LoginPage>{
 final formKey = GlobalKey<FormState>();
 String email = "";
 String password = "";
-
+bool _isLoading = false;
+AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(),
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      body: SingleChildScrollView(
+      body: _isLoading ? Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor),) : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
           child: Form(
@@ -45,7 +51,7 @@ String password = "";
                   labelText: "Email",
                   prefixIcon:  const Icon(
                     Icons.email,
-                    color: Color(0xFFee7b64),
+                    color: Color(0xFFee7b64), 
                   )
                 ),
                 onChanged: (value){
@@ -145,9 +151,32 @@ String password = "";
 
     );
   }
-  login(){
+  login() async {
+
 if(formKey.currentState!.validate()){
-}
+          setState(() {
+            _isLoading = true;
+          });
+          await authService
+          .loginWithUserNameandPassword( email, 
+          password).then((value) async
+           {
+            if(value == true){
+              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
+
+
+              nextScreenReplace(context, HomePage());
+            }
+            else{
+          showSnackBar(context, Colors.red, value);
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          });
+        }
+
+
   }
 }
 
