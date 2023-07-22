@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:princee/helper/helper_function.dart';
 import 'package:princee/pages/auth/register_page.dart';
 import 'package:princee/pages/home_page.dart';
 import 'package:princee/service/auth_service.dart';
@@ -162,10 +164,15 @@ if(formKey.currentState!.validate()){
           password).then((value) async
            {
             if(value == true){
-              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
-
-
-              nextScreenReplace(context, HomePage());
+              QuerySnapshot snapshot =  await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+              .gettingUserDate(email);
+              // saving the values to  shared preferences
+              await HelperFunction.saveUserLoggedInStatus(true);
+              await HelperFunction.saveUserEmailSF(email);
+              await HelperFunction.saveUserNameSF(
+                snapshot.docs[0]['fullName']
+              );
+               nextScreenReplace(context, HomePage());
             }
             else{
           showSnackBar(context, Colors.red, value);

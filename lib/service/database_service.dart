@@ -38,10 +38,16 @@ final CollectionReference groupCollection =
     return snapshot;
   }
 
+//Getting  user group
 
+getUserGroups() async {
+  return userCollection.doc(uid).snapshots();
+}
 
 
 }
+
+
 
 
 
