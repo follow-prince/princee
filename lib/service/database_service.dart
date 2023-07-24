@@ -45,6 +45,47 @@ getUserGroups() async {
 }
 
 
+
+
+//Creating ka group
+Future createGroup(String userName, String id, String groupName )async{
+  DocumentReference documentReference = await groupCollection.add({
+    "groupName": groupName,
+    "groupIcon": "",
+    "admin": "${id}_$userName",
+    "members":[], 
+    "groupId": "",
+    "recentMessage":"",
+    "recentMessageSender":"",
+
+
+  });
+
+  //update the member 
+  await documentReference.update({
+    "members": FieldValue.arrayUnion(["${uid}_$userName"]),
+    "groupId": documentReference.id,
+  });
+
+
+DocumentReference userDocumentReference =  userCollection.doc(uid);
+
+return await userDocumentReference.update({
+  "groups": FieldValue.arrayUnion(["${documentReference.id}_$groupName"])
+
+
+
+});
+
+
+
+
+
+
+
+
+}
+
 }
 
 

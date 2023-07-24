@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:princee/helper/helper_function.dart';
 import 'package:princee/pages/auth/login_page.dart';
@@ -7,6 +6,7 @@ import 'package:princee/pages/profile_page.dart';
 import 'package:princee/pages/search_page.dart';
 import 'package:princee/service/auth_service.dart';
 import 'package:princee/service/database_service.dart';
+import 'package:princee/widgets/group_tile.dart';
 import 'package:princee/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,6 +29,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     gettingUserData();
   }
+
+//String Manipulation
+String getId(String res){
+  return res.substring(0,res.indexOf("_"));
+
+}
+String getName(String res){
+  return res.substring(res.indexOf("_")+1);
+}
+
+
 
   gettingUserData() async {
     await HelperFunction.getUserEmailFormSF().then((value) => {
@@ -178,63 +189,85 @@ class _HomePageState extends State<HomePage> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text("Create a Group", textAlign: TextAlign.left),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor,
+        return StatefulBuilder(
+          builder: (context, setState) {
+          return  AlertDialog(
+            title: const Text("Create a Group", textAlign: TextAlign.left),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      )
+                    : TextField(
+                        onChanged: (val) {
+                          setState(() {
+                            groupName = val;
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                       ),
-                    )
-                  : TextField(
-                      onChanged: (val) {
-                        setState(() {
-                          groupName = val;
-                        });
-                      },
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-              child: const Text("CANCEL"),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () async {},
-              style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-              child: const Text("CREATE"),
-            )
-          ],
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+                child: const Text("CANCEL"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if(groupName !=""){
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    DatabaseService(uid: FirebaseAuth
+                    .instance.currentUser!.uid)
+                    .createGroup(
+                      userName,
+                       FirebaseAuth.instance.currentUser!.uid,
+                        groupName).whenComplete(() {
+                          _isLoading = false;
+                        });
+                        Navigator.of(context).pop();
+                        showSnackBar(context,Colors.green, "Group Created Successfully");
+        
+                  }
+                },
+                style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+                child: const Text("CREATE"),
+              )
+            ],
+          );},
         );
+      
       },
+  
     );
   }
 
@@ -246,7 +279,27 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           if (snapshot.data['groups'] != null) {
             if (snapshot.data['groups'].length != 0) {
-              return Text("HELLOOO");
+              return ListView.builder(
+                itemCount: snapshot.data['groups'].length,
+                itemBuilder: (context,index){
+                int reverseIndex = snapshot.data['groups'].length -index -1;
+
+                  return GroupTile(
+
+                    groupId : getId(snapshot.data['groups'][reverseIndex]),
+                     groupName : getName(snapshot.data['groups'][reverseIndex]),
+                     userName : snapshot.data['fullName']
+                     );
+                },
+
+
+
+
+              );
+
+
+
+
             } else {
               return noGroupWidgets();
             }

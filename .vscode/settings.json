@@ -5,5 +5,11 @@
         "USEREMAILKEY",
         "USERNAMEKEY"
     ],
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+
+    "editor.bracketPairColorization.enabled": true,                                       
+    "editor.guides.bracketPairs": "active"
+
 }
+
+
