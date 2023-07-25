@@ -26,9 +26,11 @@ class _GroupTileState extends State<GroupTile> {
     return GestureDetector(
       onTap: (){
         nextScreen(context,  ChatPage(
+          groupId: widget.groupId,
+          groupName: widget.groupName,
+          userName: widget.userName,
 
 
-          
         ));
       },
       child: Container(
