@@ -10,7 +10,7 @@ import 'package:princee/widgets/group_tile.dart';
 import 'package:princee/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,29 +30,27 @@ class _HomePageState extends State<HomePage> {
     gettingUserData();
   }
 
-//String Manipulation
-String getId(String res){
-  return res.substring(0,res.indexOf("_"));
+  // String Manipulation
+  String getId(String res) {
+    return res.substring(0, res.indexOf("_"));
+  }
 
-}
-String getName(String res){
-  return res.substring(res.indexOf("_")+1);
-}
-
-
+  String getName(String res) {
+    return res.substring(res.indexOf("_") + 1);
+  }
 
   gettingUserData() async {
-    await HelperFunction.getUserEmailFormSF().then((value) => {
-          setState(() {
-            email = value!;
-          })
-        });
-    await HelperFunction.getUserNameFormSF().then((val) => {
-          setState(() {
-            userName = val!;
-          })
-        });
-    // getting the list of snapshot in or stream
+    await HelperFunction.getUserEmailFormSF().then((value) {
+      setState(() {
+        email = value!;
+      });
+    });
+    await HelperFunction.getUserNameFormSF().then((val) {
+      setState(() {
+        userName = val!;
+      });
+    });
+    // getting the list of snapshot in our stream
     await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
         .getUserGroups()
         .then((snapshot) {
@@ -105,10 +103,11 @@ String getName(String res){
             Divider(height: 2),
             ListTile(
               onTap: () {},
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: const Icon(Icons.group),
               selected: true,
-              selectedColor: Colors.green,
+              selectedTileColor: Colors.green,
               title: const Text(
                 "Groups",
                 style: TextStyle(color: Colors.black),
@@ -116,9 +115,15 @@ String getName(String res){
             ),
             ListTile(
               onTap: () {
-                nextScreenReplace(context, ProfilePage(userName: userName, email: email));
+                nextScreenReplace(
+                    context,
+                    ProfilePage(
+                      userName: userName,
+                      email: email,
+                    ));
               },
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               leading: const Icon(Icons.group),
               title: const Text(
                 "Profile",
@@ -133,7 +138,7 @@ String getName(String res){
                   builder: (context) {
                     return AlertDialog(
                       title: Text("Logout"),
-                      content: Text("Are you sure you want to logout ?"),
+                      content: Text("Are you sure you want to logout?"),
                       actions: [
                         IconButton(
                           onPressed: () {
@@ -148,7 +153,8 @@ String getName(String res){
                           onPressed: () async {
                             await authService.signOut();
                             Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()),
                               (route) => false,
                             );
                           },
@@ -162,8 +168,9 @@ String getName(String res){
                   },
                 );
               },
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              leading: Icon(Icons.exit_to_app),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              leading: const Icon(Icons.exit_to_app),
               title: const Text(
                 "Logout",
                 style: TextStyle(color: Colors.black),
@@ -191,83 +198,83 @@ String getName(String res){
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-          return  AlertDialog(
-            title: const Text("Create a Group", textAlign: TextAlign.left),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: Theme.of(context).primaryColor,
+            return AlertDialog(
+              title: const Text("Create a Group", textAlign: TextAlign.left),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        )
+                      : TextField(
+                          onChanged: (val) {
+                            setState(() {
+                              groupName = val;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.red,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                         ),
-                      )
-                    : TextField(
-                        onChanged: (val) {
-                          setState(() {
-                            groupName = val;
-                          });
-                        },
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.red,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      ),
-              ],
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-                child: const Text("CANCEL"),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  if(groupName !=""){
-                    setState(() {
-                      _isLoading = true;
-                    });
-                    DatabaseService(uid: FirebaseAuth
-                    .instance.currentUser!.uid)
-                    .createGroup(
-                      userName,
-                       FirebaseAuth.instance.currentUser!.uid,
-                        groupName).whenComplete(() {
-                          _isLoading = false;
-                        });
-                        Navigator.of(context).pop();
-                        showSnackBar(context,Colors.green, "Group Created Successfully");
-        
-                  }
-                },
-                style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-                child: const Text("CREATE"),
-              )
-            ],
-          );},
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style:
+                      ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+                  child: const Text("CANCEL"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (groupName != "") {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      DatabaseService(uid: FirebaseAuth
+                          .instance.currentUser!.uid)
+                          .createGroup(
+                          userName,
+                          FirebaseAuth.instance.currentUser!.uid,
+                          groupName).whenComplete(() {
+                        _isLoading = false;
+                      });
+                      Navigator.of(context).pop();
+                      showSnackBar(context, Colors.green, "Group Created Successfully");
+                    }
+                  },
+                  style:
+                      ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+                  child: const Text("CREATE"),
+                )
+              ],
+            );
+          },
         );
-      
       },
-  
     );
   }
 
@@ -281,25 +288,16 @@ String getName(String res){
             if (snapshot.data['groups'].length != 0) {
               return ListView.builder(
                 itemCount: snapshot.data['groups'].length,
-                itemBuilder: (context,index){
-                int reverseIndex = snapshot.data['groups'].length -index -1;
+                itemBuilder: (context, index) {
+                  int reverseIndex = snapshot.data['groups'].length - index - 1;
 
                   return GroupTile(
-
-                    groupId : getId(snapshot.data['groups'][reverseIndex]),
-                     groupName : getName(snapshot.data['groups'][reverseIndex]),
-                     userName : snapshot.data['fullName']
-                     );
+                    groupId: getId(snapshot.data['groups'][reverseIndex]),
+                    groupName: getName(snapshot.data['groups'][reverseIndex]),
+                    userName: snapshot.data['fullName'],
+                  );
                 },
-
-
-
-
               );
-
-
-
-
             } else {
               return noGroupWidgets();
             }
@@ -336,7 +334,7 @@ String getName(String res){
           ),
           const SizedBox(height: 20),
           const Text(
-            "You've not Joined any group, tap on the add icon to create a group or also search from the top search button.",
+            "You've not joined any group. Tap on the add icon to create a group or search from the top search button.",
             textAlign: TextAlign.center,
           ),
         ],
