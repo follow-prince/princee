@@ -65,7 +65,7 @@ class _GroupInfoState extends State<GroupInfo> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.blueGrey,
         title: const Text("Group Info"),
         actions: [
           // When the exit button is clicked, an alert dialog prompts for confirmation.
@@ -147,9 +147,10 @@ class _GroupInfoState extends State<GroupInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Group: ${widget.groupName}",
+                        "Group Name: ${widget.groupName}",
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
+                          fontSize: 18
                         ),
                       ),
                       const SizedBox(height: 5,),
@@ -194,10 +195,11 @@ class _GroupInfoState extends State<GroupInfo> {
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
+
                           ),
                         ),
                       ),
-                      title: Text(getName(snapshot.data['members'][index])),
+                      title: Text(getName(snapshot.data['members'][index]), style: const TextStyle(fontSize: 20),),
                       subtitle: Text(getId(snapshot.data['members'][index])),
                     ),
                   );

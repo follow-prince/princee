@@ -48,7 +48,7 @@ class _MessageTileState extends State<MessageTile> {
                   bottomRight: Radius.circular(20),
                 ),
           // Apply different background color for sent and received messages
-          color: widget.sendByMe ? Theme.of(context).primaryColor : Colors.grey[700],
+          color: widget.sendByMe ? const Color.fromARGB(137, 76, 175, 79) : Color.fromARGB(139, 255, 0, 0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,9 +58,9 @@ class _MessageTileState extends State<MessageTile> {
               widget.sender.toUpperCase(),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Color.fromARGB(255, 255, 255, 255),
                 letterSpacing: -0.5,
               ),
             ),
@@ -69,7 +69,7 @@ class _MessageTileState extends State<MessageTile> {
               // Display the message content
               widget.message,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
+              style: const TextStyle(fontSize: 13, color: Color.fromARGB(255, 255, 255, 255)),
             ),
           ],
         ),

@@ -29,6 +29,16 @@ class _ProfilePageState extends State<ProfilePage> {
           "Profile",
           style: TextStyle(color: Colors.white, fontSize: 27, fontWeight: FontWeight.bold),
         ),
+
+        flexibleSpace: AnimatedContainer(
+          duration: const Duration(milliseconds: 500), // Set the animation duration
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+          colors: <Color>[Colors.black, Color.fromARGB(255, 186, 0, 0), Color.fromARGB(255, 255, 255, 255)]),
+      ),
+    ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -37,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Icon(
               Icons.account_circle,
               size: 150,
-              color: Colors.grey[700],
+              color: Color.fromARGB(126, 249, 34, 34),
             ),
             const SizedBox(height: 15,),
             Text(
@@ -64,10 +74,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Placeholder, you can add functionality here.
               },
               contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              leading: const Icon(Icons.group),
+              leading: const Icon(Icons.group, color: Colors.white,),
               selected: true,
-              selectedColor: Colors.red,
-              title: const Text("Profile", style: TextStyle(color: Colors.black),),
+              selectedTileColor: Color.fromARGB(119, 255, 17, 0),
+              title: const Text("Profile", style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
             ),
             ListTile(
               onTap: () async {

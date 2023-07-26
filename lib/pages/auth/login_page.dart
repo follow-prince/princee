@@ -1,7 +1,6 @@
 // Importing required packages and files
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:princee/helper/helper_function.dart';
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       const Text(
-                        "Prince",
+                        "Login Page",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -58,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 10),
                       const Text(
-                        "This is not the end, this is the beginning.. Wait on see..😊",
+                        "Attention:  I am currently working on a small idea, so if there are any bugs or errors, please let me know by logging in and providing feedback. Please find the 'feedback' group in the search navigation and let me know.",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w100,
@@ -158,7 +157,17 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
+                      const SizedBox(height: 25),
+                      const Text(
+                        "created by Prince", style: TextStyle(color: Colors.red),
+                      )
+
+
+
+
                     ],
+
+
                   ),
                 ),
               ),

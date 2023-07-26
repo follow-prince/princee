@@ -75,6 +75,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.green,
+        
         title: const Text(
           "Groups",
           style: TextStyle(
@@ -83,6 +84,17 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
+
+        flexibleSpace: AnimatedContainer(
+          duration: const Duration(milliseconds: 500), // Set the animation duration
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+          colors: <Color>[Colors.black, Color.fromARGB(255, 56, 0, 186), Color.fromARGB(255, 255, 255, 255)]),
+      ),
+    ),
+
       ),
       drawer: Drawer(
         child: ListView(
@@ -91,13 +103,13 @@ class _HomePageState extends State<HomePage> {
             Icon(
               Icons.account_circle,
               size: 150,
-              color: Colors.grey[700],
+              color: Color.fromARGB(133, 11, 87, 252),
             ),
             const SizedBox(height: 15),
             Text(
               userName,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 30, fontWeight: FontWeight.bold,),
             ),
             const SizedBox(height: 30),
             Divider(height: 2),
@@ -105,12 +117,12 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              leading: const Icon(Icons.group),
+              leading: const Icon(Icons.group, color: Colors.white,),
               selected: true,
-              selectedTileColor: Colors.green,
+              selectedTileColor: Color.fromARGB(118, 17, 0, 255),
               title: const Text(
                 "Groups",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               ),
             ),
             ListTile(
@@ -127,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.group),
               title: const Text(
                 "Profile",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               ),
             ),
             ListTile(
@@ -185,7 +197,7 @@ class _HomePageState extends State<HomePage> {
           popUpDialog(context);
         },
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Color.fromARGB(255, 51, 102, 0),
         child: const Icon(Icons.add, color: Colors.white, size: 30),
       ),
     );
@@ -267,8 +279,8 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
                   style:
-                      ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-                  child: const Text("CREATE"),
+                      ElevatedButton.styleFrom(primary: Colors.green),
+                  child: const Text("CREATE" , style: TextStyle(color: Colors.white),),
                 )
               ],
             );
@@ -336,6 +348,10 @@ class _HomePageState extends State<HomePage> {
           const Text(
             "You've not joined any group. Tap on the add icon to create a group or search from the top search button.",
             textAlign: TextAlign.center,
+        
+
+
+
           ),
         ],
       ),

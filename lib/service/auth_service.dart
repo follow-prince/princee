@@ -13,11 +13,9 @@ class AuthService {
         password: password,
       )).user!;
 
-      if (user != null) {
-        // If the user is successfully authenticated, call DatabaseService to update the user data
-        return true;
-      }
-    } on FirebaseAuthException catch (e) {
+      // If the user is successfully authenticated, call DatabaseService to update the user data
+      return true;
+        } on FirebaseAuthException catch (e) {
       // If there's an error during the authentication process, return the error message
       return e.message;
     }
@@ -32,12 +30,10 @@ class AuthService {
         password: password,
       )).user!;
 
-      if (user != null) {
-        // If the user is successfully registered, call DatabaseService to save user data
-        await DatabaseService(uid: user.uid).savingUserData(fullName, email);
-        return true;
-      }
-    } on FirebaseAuthException catch (e) {
+      // If the user is successfully registered, call DatabaseService to save user data
+      await DatabaseService(uid: user.uid).savingUserData(fullName, email);
+      return true;
+        } on FirebaseAuthException catch (e) {
       // If there's an error during the registration process, return the error message
       return e.message;
     }

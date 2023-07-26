@@ -68,18 +68,32 @@ class _SearchPageState extends State<SearchPage> {
             color: Colors.white,
           ),
         ),
+
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+          colors: <Color>[Colors.black, Color.fromARGB(255, 56, 0, 186), ]
+          ),
       ),
+    ),
+
+      ),
+
+      
       body: Column(
         children: [
           Container(
-            color: Theme.of(context).primaryColor,
+            color: Color.fromARGB(255, 56, 0, 186),
+            
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: searchController,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Search Groups...",
@@ -95,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Color.fromARGB(255, 0, 21, 255).withOpacity(0.30),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: const Icon(
@@ -106,12 +120,18 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
+
+            
           ),
           isLoading
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor,
+              ? const Center(
+                  child: LinearProgressIndicator(
+                      backgroundColor: Color.fromARGB(255, 138, 138, 138),
+                      color: Color.fromARGB(143, 0, 21, 255),
+                      minHeight: 6,
+
                   ),
+
                 )
               : groupList(),
         ],
@@ -174,7 +194,7 @@ class _SearchPageState extends State<SearchPage> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       leading: CircleAvatar(
         radius: 30,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Color.fromARGB(255, 22, 69, 255),
         child: Text(
           groupName.substring(0, 1).toUpperCase(),
           style: const TextStyle(color: Colors.white),
@@ -182,7 +202,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       title: Text(
         groupName,
-        style: const TextStyle(fontWeight: FontWeight.w600),
+        style: const TextStyle(fontWeight: FontWeight.w900),
       ),
       subtitle: Text("Admin: ${getName(admin)}"),
       trailing: InkWell(
@@ -208,7 +228,7 @@ class _SearchPageState extends State<SearchPage> {
             ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 1, 104, 1),
                   border: Border.all(color: Colors.white, width: 1),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -220,7 +240,7 @@ class _SearchPageState extends State<SearchPage> {
             : Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.red,
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: const Text(

@@ -1,6 +1,5 @@
 // Tamil: டார்ட் பைண்
 // English: Dart import
-import 'dart:js';
 
 // Tamil: க்ளவுட் ஃபயர்ஸ்டோர் கிளவுட்
 // English: Cloud Firestore import
@@ -89,6 +88,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: Color.fromARGB(255, 44, 55, 42),
+
       // Tamil: படிம பொத்தானை செய்க
       // English: App Bar customization
       appBar: AppBar(
@@ -112,10 +113,21 @@ class _ChatPageState extends State<ChatPage> {
             icon: const Icon(Icons.info),
           ),
         ],
+
+        flexibleSpace: AnimatedContainer(
+          duration: const Duration(milliseconds: 500), // Set the animation duration
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+          colors: <Color>[Colors.black,Color.fromARGB(255, 44, 55, 42), Color.fromARGB(165, 58, 132, 5),Color.fromARGB(255, 44, 55, 42),]),
+      ),
+    ),
       ),
       // Tamil: உடைகளை நிலை மற்றும் அஞ்சலாளர் செய்தி
       // English: Body with chat messages and message input field
       body: Stack(
+        
         children: <Widget>[
           // Tamil: செய்யுள் செய்தி இங்கே
           // English: Chat messages are displayed here
@@ -126,7 +138,7 @@ class _ChatPageState extends State<ChatPage> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
               width: MediaQuery.of(context).size.width,
-              color: Colors.grey[700],
+              color: Color.fromARGB(255, 1, 88, 18),
               child: Row(
                 children: [
                   Expanded(
@@ -149,7 +161,7 @@ class _ChatPageState extends State<ChatPage> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.green,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: const Center(
